@@ -114,13 +114,16 @@ const assignTask = (id, assignee) => {
 
   if (!task) return null;
 
+  if (task.status === 'done') {
+    return { error: 'Completed tasks cannot be assigned' };
+  }
+
   const updated = {
     ...task,
     assignee: assignee.trim(),
   };
 
   const index = tasks.findIndex((t) => t.id === id);
-
   tasks[index] = updated;
 
   return updated;
